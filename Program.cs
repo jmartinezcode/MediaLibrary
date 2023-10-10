@@ -11,4 +11,65 @@ string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
 logger.Info(scrubbedFile);
 MovieFile movieFile = new MovieFile(scrubbedFile);
 
+string choice;
+do
+{
+    // Prompt user
+    Console.WriteLine("1) Add Movie");
+    Console.WriteLine("2) Display All Movies");
+    Console.WriteLine("Press Enter to quit.");
+    choice = Console.ReadLine();
+    logger.Info("User choice: {Choice}", choice);
+
+    switch (choice)
+    {
+        case "1":
+            // Add a movie
+            var movie = new Movie();
+
+            Console.WriteLine("Enter movie title");
+            movie.title = Console.ReadLine();
+
+            movie.genres = ReadGenres();
+
+            Console.WriteLine("Enter movie director");
+            movie.director = Console.ReadLine();
+
+            Console.WriteLine("Enter running time (h:mm:ss)");
+            movie.runningTime = TimeSpan.Parse(Console.ReadLine());
+
+            // Add the movie to the file
+            movieFile.AddMovie(movie);
+            break;
+
+        case "2":
+            // Display all movies
+            foreach (var m in movieFile.Movies)
+            {
+                Console.WriteLine(m.Display());
+            }
+            break;
+    }
+
+} while (!string.IsNullOrEmpty(choice));
+
+
 logger.Info("Program ended");
+
+static List<string> ReadGenres()
+{    
+    string genre = "";
+    var genres = new List<string>();
+    do
+    {
+        Console.WriteLine("Enter genre (or type 'done' to finish)");
+        genre = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(genre) && genre.ToLower() != "done")
+        {
+            genres.Add(genre);
+        }
+    } while (genre.ToLower() != "done");
+    if (genres.Count == 0)
+        genres.Add("(no genres listed)");
+    return genres;
+}  

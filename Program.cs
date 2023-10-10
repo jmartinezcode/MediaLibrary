@@ -8,5 +8,7 @@ var logger = LogManager.LoadConfiguration(path).GetCurrentClassLogger();
 logger.Info("Program started");
 
 string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
-
 logger.Info(scrubbedFile);
+MovieFile movieFile = new MovieFile(scrubbedFile);
+
+logger.Info("Program ended");

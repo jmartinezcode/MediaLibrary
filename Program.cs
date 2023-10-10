@@ -7,37 +7,6 @@ string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 var logger = LogManager.LoadConfiguration(path).GetCurrentClassLogger();
 logger.Info("Program started");
 
-Movie movie = new Movie
-{
-    mediaId = 123,
-    title = "Greatest Movie Ever, The (2023)",
-    director = "Jeff Grissom",
-    // timespan (hours, minutes, seconds)
-    runningTime = new TimeSpan(2, 21, 23),
-    genres = { "Comedy", "Romance" }
-};
+string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
 
-Console.WriteLine(movie.Display());
-
-Album album = new Album
-{
-    mediaId = 321,
-    title = "Greatest Album Ever, The (2020)",
-    artist = "Jeff's Awesome Band",
-    recordLabel = "Universal Music Group",
-    genres = { "Rock" }
-};
-Console.WriteLine(album.Display());
-
-Book book = new Book
-{
-    mediaId = 111,
-    title = "Super Cool Book",
-    author = "Jeff Grissom",
-    pageCount = 101,
-    publisher = "",
-    genres = { "Suspense", "Mystery" }
-};
-Console.WriteLine(book.Display());
-
-logger.Info("Program ended");
+logger.Info(scrubbedFile);

@@ -17,6 +17,7 @@ do
     // Prompt user
     Console.WriteLine("1) Add Movie");
     Console.WriteLine("2) Display All Movies");
+    Console.WriteLine("3) Find Movie");
     Console.WriteLine("Press Enter to quit.");
     choice = Console.ReadLine();
     logger.Info("User choice: {Choice}", choice);
@@ -48,6 +49,21 @@ do
             {
                 Console.WriteLine(m.Display());
             }
+            break;
+        case "3":
+            // Search for movie 
+            Console.WriteLine("Enter movie title to search:");
+            string userInput = Console.ReadLine();
+            string input = userInput.ToLower(); // convert for searching
+            // Display result and number of matches
+            Console.ForegroundColor = ConsoleColor.Green;
+            var titles = movieFile.Movies
+                .Where(m => m.title.ToLower().Contains(input))
+                .Select(m => m.title);
+            Console.WriteLine($"There are {titles.Count()} movies with \"{userInput}\" in the title:");
+            foreach (string t in titles)
+                Console.WriteLine($"\t{t}");
+            Console.ResetColor();
             break;
     }
 

@@ -65,6 +65,11 @@ do
                 Console.WriteLine($"\t{t}");
             Console.ResetColor();
             break;
+        default:
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\nPlease enter a valid option\n");
+            Console.ResetColor();
+            break;
     }
 
 } while (!string.IsNullOrEmpty(choice));
